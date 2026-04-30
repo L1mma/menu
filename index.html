@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMI Atelier — Меню</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --dark: #1a1510;
+    --gold: #c9a96e;
+    --gold-light: #e8d5a3;
+    --text: #2d2416;
+    --muted: #8a7a65;
+  }
+
+- { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+background-color: var(–cream);
+color: var(–text);
+font-family: ‘Montserrat’, sans-serif;
+font-weight: 300;
+min-height: 100vh;
+}
+
+/* HERO */
+.hero {
+position: relative;
+height: 100vh;
+max-height: 700px;
+overflow: hidden;
+display: flex;
+align-items: flex-end;
+justify-content: center;
+}
+
+.hero-bg {
+position: absolute;
+inset: 0;
+background: linear-gradient(to bottom, rgba(26,21,16,0.2) 0%, rgba(26,21,16,0.7) 100%);
+z-index: 1;
+}
+
+.hero img {
+position: absolute;
+inset: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+object-position: center 30%;
+}
+
+.hero-content {
+position: relative;
+z-index: 2;
+text-align: center;
+padding: 0 20px 60px;
+animation: fadeUp 1.2s ease both;
+}
+
+.hero-content .tagline {
+font-family: ‘Montserrat’, sans-serif;
+font-weight: 300;
+font-size: 10px;
+letter-spacing: 6px;
+text-transform: uppercase;
+color: var(–gold-light);
+margin-bottom: 12px;
+}
+
+.hero-content h1 {
+font-family: ‘Cormorant Garamond’, serif;
+font-weight: 300;
+font-size: clamp(52px, 12vw, 96px);
+color: #fff;
+line-height: 0.9;
+letter-spacing: 2px;
+}
+
+.hero-content h1 span {
+font-style: italic;
+color: var(–gold-light);
+}
+
+.hero-divider {
+width: 40px;
+height: 1px;
+background: var(–gold);
+margin: 20px auto;
+}
+
+.hero-content .subtitle {
+font-size: 11px;
+letter-spacing: 4px;
+text-transform: uppercase;
+color: rgba(255,255,255,0.6);
+}
+
+/* SCROLL INDICATOR */
+.scroll-hint {
+position: absolute;
+bottom: 20px;
+left: 50%;
+transform: translateX(-50%);
+z-index: 2;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 6px;
+animation: pulse 2s infinite;
+}
+.scroll-hint span {
+font-size: 9px;
+letter-spacing: 3px;
+color: rgba(255,255,255,0.5);
+text-transform: uppercase;
+}
+.scroll-hint::after {
+content: ‘’;
+width: 1px;
+height: 30px;
+background: linear-gradient(to bottom, rgba(201,169,110,0.8), transparent);
+}
+
+/* MENU SECTION */
+.menu-section {
+padding: 80px 20px;
+max-width: 680px;
+margin: 0 auto;
+}
+
+.section-header {
+text-align: center;
+margin-bottom: 60px;
+animation: fadeUp 0.8s ease both;
+}
+
+.section-header .label {
+font-size: 9px;
+letter-spacing: 5px;
+text-transform: uppercase;
+color: var(–gold);
+margin-bottom: 16px;
+display: block;
+}
+
+.section-header h2 {
+font-family: ‘Cormorant Garamond’, serif;
+font-weight: 300;
+font-size: clamp(36px, 8vw, 56px);
+color: var(–dark);
+line-height: 1;
+}
+
+.section-header h2 em {
+font-style: italic;
+color: var(–gold);
+}
+
+/* CATEGORY */
+.category {
+margin-bottom: 64px;
+}
+
+.category-title {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 11px;
+font-weight: 400;
+letter-spacing: 5px;
+text-transform: uppercase;
+color: var(–muted);
+margin-bottom: 24px;
+display: flex;
+align-items: center;
+gap: 16px;
+}
+
+.category-title::after {
+content: ‘’;
+flex: 1;
+height: 1px;
+background: linear-gradient(to right, var(–gold-light), transparent);
+}
+
+/* MENU ITEM */
+.menu-item {
+display: grid;
+grid-template-columns: 1fr auto;
+gap: 12px;
+padding: 20px 0;
+border-bottom: 1px solid rgba(201,169,110,0.15);
+align-items: start;
+transition: all 0.3s ease;
+cursor: default;
+}
+
+.menu-item:last-child { border-bottom: none; }
+
+.menu-item:hover .item-name {
+color: var(–gold);
+}
+
+.item-name {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 22px;
+font-weight: 400;
+color: var(–dark);
+line-height: 1.2;
+transition: color 0.3s ease;
+}
+
+.item-desc {
+font-size: 11px;
+color: var(–muted);
+margin-top: 5px;
+line-height: 1.6;
+letter-spacing: 0.3px;
+}
+
+.item-price {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 20px;
+font-weight: 300;
+color: var(–gold);
+white-space: nowrap;
+padding-top: 2px;
+}
+
+/* ITEM WITH PHOTO */
+.menu-item-photo {
+display: grid;
+grid-template-columns: 1fr 100px;
+gap: 16px;
+padding: 20px 0;
+border-bottom: 1px solid rgba(201,169,110,0.15);
+align-items: center;
+}
+
+.menu-item-photo:last-child { border-bottom: none; }
+
+.menu-item-photo .item-img {
+width: 100px;
+height: 80px;
+object-fit: cover;
+border-radius: 4px;
+filter: sepia(10%);
+}
+
+.menu-item-photo .item-img-placeholder {
+width: 100px;
+height: 80px;
+background: linear-gradient(135deg, #e8dcc8, #d4c5a9);
+border-radius: 4px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 9px;
+letter-spacing: 2px;
+color: var(–muted);
+text-transform: uppercase;
+text-align: center;
+padding: 8px;
+}
+
+.item-info {
+display: flex;
+flex-direction: column;
+gap: 4px;
+}
+
+.item-info-top {
+display: flex;
+justify-content: space-between;
+align-items: baseline;
+gap: 8px;
+}
+
+/* FEATURED */
+.featured-item {
+position: relative;
+background: var(–dark);
+border-radius: 8px;
+overflow: hidden;
+margin-bottom: 32px;
+}
+
+.featured-item img {
+width: 100%;
+height: 260px;
+object-fit: cover;
+opacity: 0.75;
+display: block;
+}
+
+.featured-img-placeholder {
+width: 100%;
+height: 260px;
+background: linear-gradient(135deg, #2d2416, #1a1510);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 11px;
+letter-spacing: 3px;
+color: var(–muted);
+text-transform: uppercase;
+}
+
+.featured-overlay {
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+padding: 24px;
+background: linear-gradient(to top, rgba(26,21,16,0.95) 0%, transparent 100%);
+}
+
+.featured-badge {
+font-size: 8px;
+letter-spacing: 4px;
+text-transform: uppercase;
+color: var(–gold);
+margin-bottom: 8px;
+}
+
+.featured-overlay .item-name {
+color: #fff;
+font-size: 26px;
+margin-bottom: 4px;
+}
+
+.featured-overlay .item-desc {
+color: rgba(255,255,255,0.5);
+margin-bottom: 10px;
+}
+
+.featured-overlay .item-price {
+font-size: 22px;
+}
+
+/* FOOTER */
+footer {
+text-align: center;
+padding: 60px 20px 40px;
+border-top: 1px solid rgba(201,169,110,0.2);
+}
+
+.footer-logo {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 32px;
+font-weight: 300;
+color: var(–dark);
+letter-spacing: 4px;
+}
+
+.footer-logo span {
+font-style: italic;
+color: var(–gold);
+}
+
+.footer-tagline {
+font-size: 9px;
+letter-spacing: 4px;
+text-transform: uppercase;
+color: var(–muted);
+margin-top: 8px;
+}
+
+.footer-info {
+margin-top: 32px;
+font-size: 11px;
+color: var(–muted);
+letter-spacing: 0.5px;
+line-height: 2;
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(24px); }
+to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+0%, 100% { opacity: 0.6; }
+50% { opacity: 1; }
+}
+
+.fade-in {
+opacity: 0;
+transform: translateY(20px);
+transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+opacity: 1;
+transform: translateY(0);
+}
+</style>
+
+</head>
+<body>
+
+<!-- HERO -->
+
+<div class="hero">
+  <img src="images/hero.jpg" alt="AMI Atelier" onerror="this.style.display='none'">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="tagline">Ресторан</p>
+    <h1>AMI<br><span>Atelier</span></h1>
+    <div class="hero-divider"></div>
+    <p class="subtitle">Авторская кухня</p>
+  </div>
+  <div class="scroll-hint"><span>меню</span></div>
+</div>
+
+<!-- МЕНЮ -->
+
+<div class="menu-section">
+
+  <div class="section-header">
+    <span class="label">Наше меню</span>
+    <h2>Вкусы &amp; <em>Эмоции</em></h2>
+  </div>
+
+  <!-- ЗАКУСКИ -->
+
+  <div class="category fade-in">
+    <div class="category-title">Закуски</div>
+
+```
+<div class="featured-item">
+  <img src="images/assort-meze.jpg" alt="Ассорти Мезе" onerror="this.onerror=null; this.parentElement.querySelector('.featured-img-placeholder').style.display='flex'; this.style.display='none'">
+  <div class="featured-img-placeholder" style="display:none">фото блюда</div>
+  <div class="featured-overlay">
+    <div class="featured-badge">★ Фирменное</div>
+    <div class="item-name">Ассорти Мезе</div>
+    <div class="item-desc">Хумус, мухаммара, джаджик с оливковым маслом и специями</div>
+    <div class="item-price">700 ₽</div>
+  </div>
+</div>
+```
+
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+  <div class="footer-logo">AMI <span>Atelier</span></div>
+  <div class="footer-tagline">Atelier of Taste</div>
+  <div class="footer-info">
+    Время работы: 12:00 — 00:00<br>
+    Резервирование столов: +7 (___) ___-__-__
+  </div>
+</footer>
+
+<script>
+  // Scroll animation
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
